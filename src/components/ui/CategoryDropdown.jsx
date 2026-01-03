@@ -2,17 +2,29 @@ import React, { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 
 const categories = [
-  "Produce",
-  "Meat & Seafood",
-  "Dairy",
-  "Bakery",
+  "All",
+  "Ramyun",
   "Snacks",
-  "Drinks",
-  "International Foods",
+  "Beverages",
+  "Frozen",
+  "Ready to Cook",
+  "Banchan",
+  "Pickled",
+  "Dairy & Soy",
+  "Pantry",
+  "Rice",
+  "Produce",
+  "Meat",
+  "Seafood",
 ];
 
-export default function CategoryDropdown({ mobile = false }) {
+export default function CategoryDropdown({ onSelect, mobile = false }) {
   const [open, setOpen] = useState(false);
+
+  const handleSelect = (category) => {
+    onSelect(category);
+    setOpen(false);
+  };
 
   return (
     <div className="relative">
@@ -20,25 +32,26 @@ export default function CategoryDropdown({ mobile = false }) {
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 font-semibold text-zionGreen hover:text-zionOrange"
       >
-        Categories
-        <FiChevronDown />
+        Categories <FiChevronDown />
       </button>
 
       {open && (
         <div
-          className={`absolute ${
-            mobile ? "relative mt-3" : "top-full mt-3"
-          } bg-white rounded-xl shadow-lg border border-gray-200 w-56 z-50`}
+          className={`
+            ${mobile ? "relative mt-3" : "absolute top-full mt-3"}
+            bg-white rounded-xl shadow-lg border border-gray-200 w-56 z-50
+          `}
         >
-          <ul className="py-2">
+          {/* 👇 SCROLLABLE LIST */}
+          <ul className="py-2 max-h-64 overflow-y-auto overscroll-contain">
             {categories.map((cat) => (
               <li key={cat}>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-700 hover:bg-zionGray hover:text-zionGreen"
+                <button
+                  onClick={() => handleSelect(cat)}
+                  className="w-full text-left px-4 py-2 text-gray-700 hover:bg-zionGray hover:text-zionGreen"
                 >
                   {cat}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
