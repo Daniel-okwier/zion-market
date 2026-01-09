@@ -93,7 +93,7 @@ export const products = [
   },
   {
     id: 11,
-    name: "Pork jowl Sliced",
+    name: "Pork Jowl Sliced",
     price: 12.99,
     unit: "1 lb",
     category: "Meat",
